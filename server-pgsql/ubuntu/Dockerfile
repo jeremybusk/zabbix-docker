@@ -1,5 +1,27 @@
 FROM ubuntu:focal
 
+# start custom
+RUN set -eux && \
+    apt-get -y update && \
+    DEBIAN_FRONTEND=noninteractive apt-get -y --no-install-recommends install \
+    dnsutils \
+    curl \
+    netcat-openbsd \
+    python3 \
+    python3-pip \
+    libffi-dev \
+    libgit2-dev \
+    # build-essential \
+    # libssh2-1-dev \
+    python3-dev \
+    gcc
+
+
+#  --prefer-binary
+RUN pip3 install --no-cache-dir gitfs
+RUN mkdir -p /var/lib/gitfs
+# end custom
+
 LABEL org.opencontainers.image.title="Zabbix server (PostgreSQL)" \
       org.opencontainers.image.authors="Alexey Pustovalov <alexey.pustovalov@zabbix.com>" \
       org.opencontainers.image.vendor="Zabbix LLC" \
